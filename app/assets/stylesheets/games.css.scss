@@ -80,3 +80,39 @@
   padding-right: 10px;
   color: #000;
 }
+
+.body_right_bottom.game {
+  hr {
+    border-color: #000;
+    margin: 20px 0;
+    width: 100%;
+    position: relative;
+  }
+  .game-high-score {
+
+
+    b.left-column {
+      float: left;
+      width: 50%;
+    }
+
+    b.right-column {
+      float: right;
+      width: 50%;
+    }
+
+    .user-name {
+      font-size: 12px;
+      margin: 5px 0;
+      float: left;
+      width: 50%;
+    }
+
+    .user-score{
+      font-size: 12px;
+      margin: 5px 0;
+      float: right;
+      width: 50%;
+    }
+  }
+}
