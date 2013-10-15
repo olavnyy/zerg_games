@@ -1,0 +1,46 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %title= content_for?(:title) ? yield(:title) : "ZergArcade"
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "application", :media => "all"
+    = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
+    = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
+    = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
+    = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
+    = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
+    = javascript_include_tag "application"
+    = javascript_include_tag "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js"
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+
+
+  %body
+    - if flash[:notice]
+      .alert.alert-success= flash[:notice]
+    .body-wrapper
+      %ul.nav.nav-pills
+        %li.active= link_to "Home", root_path
+        %li= link_to "Games", games_path
+        %li= link_to "Some link goes here 2", root_path
+        - if user_signed_in? && current_user.admin?
+          %li= link_to "Some admin link", root_path
+          %li= link_to "Users", users_path
+        - if user_signed_in?
+          .right-bar
+            %ul.nav.nav-pills
+              %li= link_to current_user.nickname || current_user.username, edit_user_registration_path(current_user)
+              %li= link_to "Sign out", destroy_user_session_path, :method => :delete
+        - else
+          .right-bar
+            %ul.nav.nav-pills
+              %li= link_to "Sign in", new_user_session_path
+              %li.separator-list= "|"
+              %li= link_to "Sign up", new_user_registration_path
+      / = link_to "Users page", users_path
+    = yield

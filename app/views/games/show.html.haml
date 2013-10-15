@@ -1,0 +1,146 @@
+:javascript
+  <!--
+    var config = {
+      width: 800, 
+      height: 600,
+      params: { enableDebugging:"0",
+                disablefullscreen: true }
+      
+    };
+    var u = new UnityObject2(config);
+  
+    jQuery(function() {
+  
+      var $missingScreen = jQuery(".unityPlayer").find(".missing");
+      var $brokenScreen = jQuery(".unityPlayer").find(".broken");
+      $missingScreen.hide();
+      $brokenScreen.hide();
+      
+      u.observeProgress(function (progress) {
+        switch(progress.pluginStatus) {
+          case "broken":
+            $brokenScreen.find("a").click(function (e) {
+              e.stopPropagation();
+              e.preventDefault();
+              u.installPlugin();
+              return false;
+            });
+            $brokenScreen.show();
+          break;
+          case "missing":
+            $missingScreen.find("a").click(function (e) {
+              e.stopPropagation();
+              e.preventDefault();
+              u.installPlugin();
+              return false;
+            });
+            $missingScreen.show();
+          break;
+          case "installed":
+            $missingScreen.remove();
+          break;
+          case "first":
+          break;
+        }
+      });
+      u.initPlugin($(".unityPlayer")[0], "#{root_url}unity/PublishingUnity.unity3d");
+    });
+  -->
+:css
+  <!--
+  body {
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    background-color: white;
+    color: black;
+    text-align: center;
+  }
+  a:link, a:visited {
+    color: #000;
+  }
+  a:active, a:hover {
+    color: #666;
+  }
+  p.header {
+    margin: 25px 0;
+    font-size: small;
+  }
+  p.header span {
+    font-weight: bold;
+  }
+  p.footer {
+    margin-top: 25px;
+    float: left;
+    width: 100%;
+    font-size: x-small;
+  }
+  div.content {
+    margin: auto;
+    width: 70%;
+  }
+  div.broken,
+  div.missing {
+    margin: auto;
+    position: relative;
+    top: 50%;
+    width: 193px;
+  }
+  div.broken a,
+  div.missing a {
+    height: 63px;
+    position: relative;
+    top: -31px;
+  }
+  div.broken img,
+  div.missing img {
+    border-width: 0px;
+  }
+  div.broken {
+    display: none;
+  }
+  div.unityPlayer {
+    float: left;
+    cursor: default;
+    height: 600px;
+    width: 800px;
+  }
+  -->
+.home_index
+  .unityPlayer
+    .missing
+      %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now!"}
+        %img{alt: "Unity Web Player. Install now!", height: "63", src: "http://webplayer.unity3d.com/installation/getunity.png", width: "193"}/
+    .broken
+      %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now! Restart your browser after install."}
+        %img{alt: "Unity Web Player. Install now! Restart your browser after install.", height: "63", src: "http://webplayer.unity3d.com/installation/getunityrestart.png", width: "193"}/
+    %p.footer
+      \« Powered by
+      %a{href: "http://unity3d.com/unity/", title: "Go to unity3d.com"} Unity
+      \»
+  .body_right_top.game
+    .game-info
+      %p#notice= notice
+      %ul
+        %li
+          %b.label.label-primary Name:
+          .span= @game.name
+        %li
+          %b.label.label-info Description:
+          .span= @game.description
+        %li
+          %b.label.label-warning Publisher:
+          .span= @game.publisher
+  .body_right_bottom.game
+  .comments
+    - if @comments
+      - @comments.each do |comment|
+        .comment-post.alert-success
+          %p.comment-message= comment.message
+          %hr
+          %p.comment-date= comment.user.nickname + " | " + comment.created_at.strftime("%d %B %Y")
+  .comment-form
+    = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
+      = f.label :message 
+      = f.text_field :message 
+      = f.hidden_field :user_id, :value => current_user.id
+      = f.hidden_field :game_id, :value => @game.id
+      = f.submit "Add Comment"

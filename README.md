@@ -1,2 +1,2 @@
-zerg_games
-==========
+zerg_arcade
+===========

@@ -1,0 +1,66 @@
+/ %h1 Listing games
+
+/ %table
+/   %tr
+/     %th Name
+/     %th Publisher
+/     %th Website
+/     %th Genre
+/     %th Year
+/     %th Description
+/     %th
+/     %th
+/     %th
+
+/   - @games.each do |game|
+/     %tr
+/       %td= game.name
+/       %td= game.publisher
+/       %td= game.website
+/       %td= game.genre
+/       %td= game.year
+/       %td= game.description
+/       %td= link_to 'Show', game
+/       %td= link_to 'Edit', edit_game_path(game)
+/       %td= link_to 'Destroy', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+/ %br
+
+/ = link_to 'New Game', new_game_path
+
+- model_class = Game.new.class
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:description)
+      %th= model_class.human_attribute_name(:website)
+      %th= model_class.human_attribute_name(:publisher)
+      %th= model_class.human_attribute_name(:genre)
+      %th= model_class.human_attribute_name(:year)
+      - if current_user && current_user.admin?
+        %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - if @games
+      - @games.each do |game|
+        %tr
+          %td
+            .label.label-default= link_to game.name, game
+          %td
+            .label.label-info= game.description
+          %td
+            .label.label-primary
+              - if game.website.empty?
+                = link_to game.name, game.website
+              - else
+                = link_to game.name, root_path
+          %td
+            .label.label-warning= game.publisher
+          %td
+            .label.label-info= game.genre
+          %td
+            .label.label-success= game.year
+          - if current_user && current_user.admin?
+            %td
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_game_path(game), :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-success'
+              = link_to t('.destroy', :default => t("helpers.links.destroy")), game, :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
