@@ -51,9 +51,9 @@
           %td
             .label.label-primary
               - if game.website.empty?
-                = link_to game.name, game.website
+                = link_to game.name, root_url
               - else
-                = link_to game.name, root_path
+                = link_to game.name, game.website
           %td
             .label.label-warning= game.publisher
           %td

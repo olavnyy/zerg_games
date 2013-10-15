@@ -137,10 +137,11 @@
           %p.comment-message= comment.message
           %hr
           %p.comment-date= comment.user.nickname + " | " + comment.created_at.strftime("%d %B %Y")
-  .comment-form
-    = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
-      = f.label :message 
-      = f.text_field :message 
-      = f.hidden_field :user_id, :value => current_user.id
-      = f.hidden_field :game_id, :value => @game.id
-      = f.submit "Add Comment"
+  - if current_user
+    .comment-form
+      = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
+        = f.label :message 
+        = f.text_field :message 
+        = f.hidden_field :user_id, :value => current_user.id
+        = f.hidden_field :game_id, :value => @game.id
+        = f.submit "Add Comment"
