@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :comments
   has_many :game_plays, dependent: :destroy
+  has_many :friendships
+  has_many :friends, through: :friendships
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

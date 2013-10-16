@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  username: MyString
-  nickname: MyString
-  provider: MyString
+jet:
+  username: Jet
+  nickname: FriendlyFire
+  provider: facebook
   url: MyString
+  email: friendlyfire@zerg_game.com
 
-two:
-  username: MyString
-  nickname: MyString
-  provider: MyString
+jack:
+  username: Jack
+  nickname: RedZerg
+  provider: facebook
   url: MyString
+  email: redzerg@zerg_game.com
