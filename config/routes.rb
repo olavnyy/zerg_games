@@ -1,4 +1,6 @@
 ZergArcade::Application.routes.draw do
+  get "friendship/create"
+  get "friendship/destroy"
   resources :comments
 
   resources :games
