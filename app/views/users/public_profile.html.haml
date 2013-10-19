@@ -1,0 +1,10 @@
+.home_index
+	.body_home
+		- @user.games.each do |game|
+			.game-block
+				%ul
+					%li= link_to game.name, game
+					%li= "Games Played : #{game.scores.count}"
+					%li= "Best Score : " + best_score(game)
+	.body_right_top
+	.body_right_bottom

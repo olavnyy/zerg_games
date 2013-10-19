@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @comments = Comment.where(:game_id => @game.id)
+    @top_scores = @game.scores.order(:score).reverse_order.limit(10)
   end
 
   # GET /games/new

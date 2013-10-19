@@ -133,9 +133,9 @@
     .game-high-score
       %b.left-column.label.label-success Player:
       %b.right-column.label.label-primary Score:
-      - @game.game_plays.each do |play|
-        .span.user-name= play.user.nickname
-        .span.user-score= play.score
+      - @top_scores.each do |scor|
+        .span.user-name= scor.game_play.user.nickname
+        .span.user-score= scor.score
 
   .comments
     - if @comments

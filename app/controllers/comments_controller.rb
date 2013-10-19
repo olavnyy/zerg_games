@@ -25,7 +25,6 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    binding.pry
     @comment = Comment.new(comment_params)
 
     respond_to do |format|

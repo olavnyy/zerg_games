@@ -3,11 +3,13 @@ ZergArcade::Application.routes.draw do
   get "friendship/destroy"
   resources :comments
 
-  resources :games
-
   get "omniauth_callbacks/facebook"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users, :only => [:index, :destroy]
+  #resources :users, :only => [:index, :destroy]
+  resources :users do
+    get :public_profile
+  end
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
