@@ -47,6 +47,7 @@
   background-color: #F8F8FF; }
 
 .comment-post {
+  float: right;
   height: auto;
   display: block;
   overflow: auto;
@@ -60,6 +61,11 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border-color: #888;
+  }
+  p {
+    float: right;
+    line-height: 30px;
+    padding-right: 10px;
   }
 }
 
@@ -77,8 +83,8 @@
 
 .comment-date {
   text-align: right;
-  padding-right: 10px;
   color: #000;
+  line-height: 26px;
 }
 
 .body_right_bottom.game {

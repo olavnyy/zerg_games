@@ -118,7 +118,6 @@
       \»
   .body_right_top.game
     .game-info
-      %p#notice= notice
       %ul
         %li
           .span= image_tag @game.logo.url(:small)
@@ -151,7 +150,11 @@
         .comment-post.alert-success
           %p.comment-message= comment.message
           %hr
-          %p.comment-date= comment.user.nickname + " | " + comment.created_at.strftime("%d %B %Y")
+          - if current_user.admin?
+            %p= link_to t('.destroy', :default => t("helpers.links.destroy")), comment_path(comment), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+          %p= comment.created_at.strftime("%d %B %Y")
+          %p.comment-date= link_to comment.user.nickname, user_public_profile_path(comment.user)
+
   - if current_user
     .comment-form
       = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|

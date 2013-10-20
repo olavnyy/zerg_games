@@ -6,7 +6,7 @@ $ ->
     $(".alert.alert-success").show()
     setTimeout (->
       $(".alert.alert-success").hide()
-    ), 1000
+    ), 2500
   else
     $(".alert.alert-success").hide()
 

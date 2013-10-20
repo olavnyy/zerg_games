@@ -3,7 +3,8 @@ class Game < ActiveRecord::Base
 	has_many :game_plays, dependent: :destroy
 	has_many :users, through: :game_plays
 	has_many :scores, through: :game_plays
-	accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:message].blank? }, :allow_destroy => true
+
+	accepts_nested_attributes_for :comments, allow_destroy: true
 
 	validates_presence_of :name, :publisher, :genre, :year, :description
 
@@ -13,9 +14,15 @@ class Game < ActiveRecord::Base
 
 	validates_attachment_presence :game_file
 	validates_attachment_size :game_file, :less_than => 50.megabytes
-	validates_attachment_content_type :game_file, :content_type => ['application/octet-stream']
+	validates_attachment_content_type :game_file, :content_type => ['application/octet-stream', 'application/vnd.unity']
 
 	validates_attachment_presence :logo
 	validates_attachment_size :logo, :less_than => 2.megabytes
 	validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png']
+
+	private
+		def comment_message_blank(_attributes)
+			binding.pry
+			_attributes[:message].blank?
+		end
 end

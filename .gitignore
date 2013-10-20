@@ -15,3 +15,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore logo and files.
+/public/games
+/public/system
