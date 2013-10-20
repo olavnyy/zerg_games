@@ -9,3 +9,5 @@ $ ->
     ), 1000
   else
     $(".alert.alert-success").hide()
+
+  window.location.hash = ""  if window.location.hash and window.location.hash is "#_=_"

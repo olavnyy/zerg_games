@@ -129,6 +129,12 @@
         %li
           %b.label.label-warning Publisher:
           .span= @game.publisher
+        %li
+          %b.label.label-warning Games Played:
+          .span= @game.scores.count
+        %li
+          %b.label.label-warning Players Played:
+          .span= @game.users.count
   .body_right_bottom.game
     .game-high-score
       %b.left-column.label.label-success Player:
