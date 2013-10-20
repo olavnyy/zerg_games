@@ -121,6 +121,8 @@
       %p#notice= notice
       %ul
         %li
+          .span= image_tag @game.logo.url(:small)
+        %li
           %b.label.label-primary Name:
           .span= @game.name
         %li
