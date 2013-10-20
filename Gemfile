@@ -16,6 +16,8 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
 gem 'devise', '3.0.0.rc'
 gem "haml-rails"
 gem "hocus_pocus"
