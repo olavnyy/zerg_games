@@ -104,29 +104,90 @@
     width: 800px;
   }
   -->
-.home_index
-  .unityPlayer
-    .missing
-      %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now!"}
-        %img{alt: "Unity Web Player. Install now!", height: "63", src: "http://webplayer.unity3d.com/installation/getunity.png", width: "193"}/
-    .broken
-      %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now! Restart your browser after install."}
-        %img{alt: "Unity Web Player. Install now! Restart your browser after install.", height: "63", src: "http://webplayer.unity3d.com/installation/getunityrestart.png", width: "193"}/
-    %p.footer
-      \« Powered by
-      %a{href: "http://unity3d.com/unity/", title: "Go to unity3d.com"} Unity
-      \»
-  .body_right_top.game
-    .game-info
+/ .home_index
+/   .unityPlayer
+/     .missing
+/       %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now!"}
+/         %img{alt: "Unity Web Player. Install now!", height: "63", src: "http://webplayer.unity3d.com/installation/getunity.png", width: "193"}/
+/     .broken
+/       %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now! Restart your browser after install."}
+/         %img{alt: "Unity Web Player. Install now! Restart your browser after install.", height: "63", src: "http://webplayer.unity3d.com/installation/getunityrestart.png", width: "193"}/
+/     %p.footer
+/       \« Powered by
+/       %a{href: "http://unity3d.com/unity/", title: "Go to unity3d.com"} Unity
+/       \»
+/   .body_right_top.game
+/     .game-info
+/       %ul
+/         %li
+/           .span= image_tag @game.logo.url(:small)
+/         %li
+/           %b.label.label-primary Name:
+/           .span= @game.name
+/         %li
+/           %b.label.label-info Description:
+/           .span= @game.description
+/         %li
+/           %b.label.label-warning Publisher:
+/           .span= @game.publisher
+/         %li
+/           %b.label.label-warning Games Played:
+/           .span= @game.scores.count
+/         %li
+/           %b.label.label-warning Players Played:
+/           .span= @game.users.count
+/   .body_right_bottom.game
+/     .game-high-score
+/       %b.left-column.label.label-success Player:
+/       %b.right-column.label.label-primary Score:
+/       - @top_scores.each do |scor|
+/         .span.user-name= scor.game_play.user.nickname
+/         .span.user-score= scor.score
+
+/   .comments
+/     - if @comments
+/       - @comments.each do |comment|
+/         .comment-post.alert-success
+/           %p.comment-message= comment.message
+/           %hr
+/           - if current_user.admin?
+/             %p= link_to t('.destroy', :default => t("helpers.links.destroy")), comment_path(comment), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+/           %p= comment.created_at.strftime("%d %B %Y")
+/           %p.comment-date= link_to comment.user.nickname, user_public_profile_path(comment.user)
+
+/   - if current_user
+/     .comment-form
+/       = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
+/         = f.label :message 
+/         = f.text_field :message 
+/         = f.hidden_field :user_id, :value => current_user.id
+/         = f.hidden_field :game_id, :value => @game.id
+/         = f.submit "Add Comment"
+
+.container
+  .row
+    .col-lg-12
+      %h1.page-header
+        = @game.name
+  .row
+    .col-md-8
+      %img.img-responsive
+        .unityPlayer
+          .missing
+            %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now!"}
+              %img{alt: "Unity Web Player. Install now!", height: "63", src: "http://webplayer.unity3d.com/installation/getunity.png", width: "193"}/
+          .broken
+            %a{href: "http://unity3d.com/webplayer/", title: "Unity Web Player. Install now! Restart your browser after install."}
+              %img{alt: "Unity Web Player. Install now! Restart your browser after install.", height: "63", src: "http://webplayer.unity3d.com/installation/getunityrestart.png", width: "193"}/
+          %p.footer
+            \« Powered by
+            %a{href: "http://unity3d.com/unity/", title: "Go to unity3d.com"} Unity
+            \»
+    .col-md-4
+      %h3 Game Description
+      %p= @game.description
+      %h3 Game Details
       %ul
-        %li
-          .span= image_tag @game.logo.url(:small)
-        %li
-          %b.label.label-primary Name:
-          .span= @game.name
-        %li
-          %b.label.label-info Description:
-          .span= @game.description
         %li
           %b.label.label-warning Publisher:
           .span= @game.publisher
@@ -136,30 +197,40 @@
         %li
           %b.label.label-warning Players Played:
           .span= @game.users.count
-  .body_right_bottom.game
-    .game-high-score
-      %b.left-column.label.label-success Player:
-      %b.right-column.label.label-primary Score:
-      - @top_scores.each do |scor|
-        .span.user-name= scor.game_play.user.nickname
-        .span.user-score= scor.score
+  .row
+    .col-lg-12
+      %h3.page-header Screenshots
+    .col-sm-3.col-xs-6
+      %a{href: "#"}
+        %img.img-responsive.portfolio-item{src: "http://placehold.it/500x300"}/
+    .col-sm-3.col-xs-6
+      %a{href: "#"}
+        %img.img-responsive.portfolio-item{src: "http://placehold.it/500x300"}/
+    .col-sm-3.col-xs-6
+      %a{href: "#"}
+        %img.img-responsive.portfolio-item{src: "http://placehold.it/500x300"}/
+    .col-sm-3.col-xs-6
+      %a{href: "#"}
+        %img.img-responsive.portfolio-item{src: "http://placehold.it/500x300"}/
+  .row
+    .col-lg-12
+      %h3.page-header Comments
+    .comments
+      - if @comments
+        - @comments.each do |comment|
+          .comment-post.alert-success
+            %p.comment-message= comment.message
+            %hr
+            - if current_user.admin?
+              %p= link_to t('.destroy', :default => t("helpers.links.destroy")), comment_path(comment), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+            %p= comment.created_at.strftime("%d %B %Y")
+            %p.comment-date= link_to comment.user.nickname, user_public_profile_path(comment.user)
 
-  .comments
-    - if @comments
-      - @comments.each do |comment|
-        .comment-post.alert-success
-          %p.comment-message= comment.message
-          %hr
-          - if current_user.admin?
-            %p= link_to t('.destroy', :default => t("helpers.links.destroy")), comment_path(comment), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
-          %p= comment.created_at.strftime("%d %B %Y")
-          %p.comment-date= link_to comment.user.nickname, user_public_profile_path(comment.user)
-
-  - if current_user
-    .comment-form
-      = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
-        = f.label :message 
-        = f.text_field :message 
-        = f.hidden_field :user_id, :value => current_user.id
-        = f.hidden_field :game_id, :value => @game.id
-        = f.submit "Add Comment"
+    - if current_user
+      .comment-form
+        = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
+          = f.label :message 
+          = f.text_field :message, class: "input-large"
+          = f.hidden_field :user_id, :value => current_user.id
+          = f.hidden_field :game_id, :value => @game.id
+          = f.submit "Add Comment"

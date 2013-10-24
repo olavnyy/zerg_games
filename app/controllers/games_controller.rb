@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   # GET /games
@@ -61,6 +62,10 @@ class GamesController < ApplicationController
       format.html { redirect_to games_url }
       format.json { head :no_content }
     end
+  end
+
+  def set_player_data
+    binding.pry
   end
 
   private
