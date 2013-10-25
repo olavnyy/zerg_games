@@ -70,6 +70,7 @@ ZergArcade::Application.routes.draw do
   resources :games do
     collection do
       post :set_player_data
+      get :get_player_data
     end
     resources :comments
   end

@@ -13,6 +13,8 @@ class GamesController < ApplicationController
   def show
     @comments = Comment.where(:game_id => @game.id)
     @top_scores = @game.scores.order(:score).reverse_order.limit(10)
+    @game_play = params[:id]
+    @user_play = current_user.id
   end
 
   # GET /games/new
@@ -65,7 +67,9 @@ class GamesController < ApplicationController
   end
 
   def set_player_data
-    binding.pry
+  end
+
+  def get_player_data
   end
 
   private
