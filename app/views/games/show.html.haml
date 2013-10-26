@@ -104,6 +104,25 @@
     width: 800px;
   }
   -->
+
+:javascript
+  console.log("aaa");
+  userData = #{@user_play},
+  gameData = #{@game_play};
+  function GetGameData() {
+    console.log("before SendGameData");
+    SendGameData(userData, gameData);
+    console.log("after SendGameData");
+  }
+  function SendGameData(userId, gameId) {
+    console.log("before SendGameData");
+    console.log(userId);
+    console.log(gameId);
+    a = u.getUnity();
+    console.log("getUnity success");
+    console.log(a);
+    u.getUnity().SendMessage("_GameManager", "SetGameDetails", userId);
+  }
 / .home_index
 /   .unityPlayer
 /     .missing

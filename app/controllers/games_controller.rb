@@ -2,6 +2,9 @@ class GamesController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
+  @@game_play = nil
+  @@user_play = nil
+
   # GET /games
   # GET /games.json
   def index
@@ -67,9 +70,11 @@ class GamesController < ApplicationController
   end
 
   def set_player_data
+    render :nothing => true
   end
 
   def get_player_data
+    render :json => {:user => @@user_play, :game => @@game_play}
   end
 
   private

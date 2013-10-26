@@ -20,7 +20,7 @@ gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
 gem 'devise', '3.0.0.rc'
 gem "haml-rails"
-gem "hocus_pocus"
+#gem "hocus_pocus"
 gem 'twitter-bootstrap-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
