@@ -70,6 +70,11 @@ class GamesController < ApplicationController
   end
 
   def set_player_data
+    @gameplay = GamePlay.find_or_create_by_game_id_and_user_id(params[:game_id], params[:user_id])
+    @score = Score.new(:score => params[:score])
+    @gameplay.count += 1
+    @gameplay.scores << @score
+    @gameplay.save
     render :nothing => true
   end
 

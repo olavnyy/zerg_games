@@ -43,7 +43,7 @@
           break;
         }
       });
-      u.initPlugin($(".unityPlayer")[0], "#{root_url}games/unity/#{@game.id}/#{@game.game_file_file_name}");
+      u.initPlugin($(".unityPlayer")[0], "#{root_url}games/unity/#{@game.id}/#{@game.game_file_file_name}?#{@user_play}&#{@game_play}&#{form_authenticity_token}");
     });
   -->
 :css
@@ -216,6 +216,13 @@
         %li
           %b.label.label-warning Players Played:
           .span= @game.users.count
+      .body_right_bottom.game
+        .game-high-score
+          %b.left-column.label.label-success Player:
+          %b.right-column.label.label-primary Score:
+          - @top_scores.each do |scor|
+            .span.user-name= scor.game_play.user.nickname
+            .span.user-score= scor.score
   .row
     .col-lg-12
       %h3.page-header Screenshots
