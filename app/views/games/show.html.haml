@@ -255,8 +255,7 @@
     - if current_user
       .comment-form
         = form_for :comment, :url => {:controller => "comments", :action => "create"} do |f|
-          = f.label :message 
-          = f.text_field :message, class: "input-large"
+          = f.text_area :message
           = f.hidden_field :user_id, :value => current_user.id
           = f.hidden_field :game_id, :value => @game.id
-          = f.submit "Add Comment"
+          = f.submit "Add Comment", :class => 'btn btn-mini btn-danger comment-submit'
